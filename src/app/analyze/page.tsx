@@ -74,6 +74,57 @@ export default function AnalyzePage() {
           </p>
         </div>
 
+        {/* Available Analysis Frameworks */}
+        <Card>
+          <CardHeader>
+            <CardTitle>📊 Available Analysis Frameworks</CardTitle>
+            <CardDescription>
+              Choose which professional frameworks to apply to your meeting analysis
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {frameworks.map((framework) => (
+                <div
+                  key={framework.id}
+                  className={`
+                    p-4 border rounded-lg cursor-pointer transition-colors
+                    ${selectedFrameworks.includes(framework.id)
+                      ? 'border-primary bg-primary/5'
+                      : 'border-gray-200 hover:border-primary/50'
+                    }
+                  `}
+                  onClick={() => handleFrameworkToggle(framework.id)}
+                >
+                  <div className="flex items-start space-x-3">
+                    <div className={`
+                      w-4 h-4 rounded border mt-1
+                      ${selectedFrameworks.includes(framework.id)
+                        ? 'bg-primary border-primary'
+                        : 'border-gray-300'
+                      }
+                    `} />
+                    <div className="flex-1">
+                      <h4 className="font-semibold">{framework.name}</h4>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        {framework.description}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {selectedFrameworks.length > 0 && (
+              <div className="mt-4 p-3 bg-primary/5 rounded-lg">
+                <p className="text-sm font-medium text-primary">
+                  ✅ {selectedFrameworks.length} framework(s) selected
+                </p>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         {/* File Upload */}
         {!selectedFile && (
           <FileUpload onFileSelect={handleFileSelect} isLoading={isAnalyzing} />
@@ -83,7 +134,7 @@ export default function AnalyzePage() {
         {selectedFile && (
           <Card>
             <CardHeader>
-              <CardTitle>File Selected</CardTitle>
+              <CardTitle>📄 File Selected</CardTitle>
               <CardDescription>
                 {selectedFile.name} ({(selectedFile.size / 1024).toFixed(1)} KB)
               </CardDescription>
@@ -95,7 +146,6 @@ export default function AnalyzePage() {
                   onClick={() => {
                     setSelectedFile(null)
                     setTranscript('')
-                    setSelectedFrameworks([])
                   }}
                 >
                   Change File
@@ -108,69 +158,33 @@ export default function AnalyzePage() {
           </Card>
         )}
 
-        {/* Framework Selection */}
-        {selectedFile && (
+        {/* Start Analysis */}
+        {selectedFile && selectedFrameworks.length > 0 && (
           <Card>
             <CardHeader>
-              <CardTitle>Select Analysis Frameworks</CardTitle>
+              <CardTitle>🚀 Ready to Analyze</CardTitle>
               <CardDescription>
-                Choose which professional frameworks to apply to your meeting analysis
+                File uploaded and frameworks selected. Ready to start analysis!
               </CardDescription>
             </CardHeader>
             <CardContent>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                {frameworks.map((framework) => (
-                  <div
-                    key={framework.id}
-                    className={`
-                      p-4 border rounded-lg cursor-pointer transition-colors
-                      ${selectedFrameworks.includes(framework.id)
-                        ? 'border-primary bg-primary/5'
-                        : 'border-gray-200 hover:border-primary/50'
-                      }
-                    `}
-                    onClick={() => handleFrameworkToggle(framework.id)}
-                  >
-                    <div className="flex items-start space-x-3">
-                      <div className={`
-                        w-4 h-4 rounded border mt-1
-                        ${selectedFrameworks.includes(framework.id)
-                          ? 'bg-primary border-primary'
-                          : 'border-gray-300'
-                        }
-                      `} />
-                      <div className="flex-1">
-                        <h4 className="font-semibold">{framework.name}</h4>
-                        <p className="text-sm text-muted-foreground mt-1">
-                          {framework.description}
-                        </p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              {selectedFrameworks.length > 0 && (
-                <div className="mt-6 pt-6 border-t">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <p className="font-semibold">
-                        {selectedFrameworks.length} framework(s) selected
-                      </p>
-                      <p className="text-sm text-muted-foreground">
-                        Analysis will take approximately {selectedFrameworks.length * 30} seconds
-                      </p>
-                    </div>
-                    <Button
-                      onClick={handleAnalyze}
-                      disabled={isAnalyzing}
-                      size="lg"
-                    >
-                      {isAnalyzing ? 'Analyzing...' : 'Start Analysis'}
-                    </Button>
-                  </div>
+              <div className="flex justify-between items-center">
+                <div>
+                  <p className="font-semibold">
+                    ✅ {selectedFrameworks.length} framework(s) selected
+                  </p>
+                  <p className="text-sm text-muted-foreground">
+                    Analysis will take approximately {selectedFrameworks.length * 30} seconds
+                  </p>
                 </div>
-              )}
+                <Button
+                  onClick={handleAnalyze}
+                  disabled={isAnalyzing}
+                  size="lg"
+                >
+                  {isAnalyzing ? 'Analyzing...' : 'Start Analysis'}
+                </Button>
+              </div>
             </CardContent>
           </Card>
         )}
