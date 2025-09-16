@@ -11,34 +11,42 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@notionhq/client": "^2.2.15",
+    "@tailwindcss/postcss": "^4.1.13",
+    "clsx": "^2.0.0",
     "next": "15.5.3",
+    "openai": "^4.20.1",
     "react": "19.1.0",
     "react-dom": "19.1.0",
-    "openai": "^4.20.1",
     "react-dropzone": "^14.2.3",
     "react-hook-form": "^7.47.0",
-    "@notionhq/client": "^2.2.15",
-    "uuid": "^9.0.1",
-    "clsx": "^2.0.0",
-    "tailwind-merge": "^2.0.0"
+    "tailwind-merge": "^2.0.0",
+    "uuid": "^9.0.1"
   },
   "devDependencies": {
     "@types/node": "^22",
     "@types/react": "^19",
     "@types/react-dom": "^19",
     "@types/uuid": "^9.0.8",
-    "typescript": "^5",
+    "autoprefixer": "^10.0.1",
     "eslint": "^9",
     "eslint-config-next": "15.5.3",
-    "tailwindcss": "^4.0.0",
     "postcss": "^8",
-    "autoprefixer": "^10.0.1"
+    "tailwindcss": "^4.0.0",
+    "typescript": "^5"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Joseph0visioneer/JARVIS_MVP_v0.2_Cld_Bizbee-v0.1.git"
   },
-  "keywords": ["AI", "meeting-analysis", "nextjs", "typescript", "notion", "openai"],
+  "keywords": [
+    "AI",
+    "meeting-analysis",
+    "nextjs",
+    "typescript",
+    "notion",
+    "openai"
+  ],
   "author": "Joseph0visioneer",
   "license": "MIT",
   "bugs": {
